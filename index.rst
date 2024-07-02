@@ -1,6 +1,12 @@
-:tocdepth: 1
+################################################
+StarTracker Narrow Camera to Fast Camera Offsets
+################################################
 
-.. sectnum::
+.. abstract::
+
+   There are three StarTracker cameras mounted on the Rubin Observatory TMA (Telescope Mount Assembly).  This technote describes the offsets necessary to center images in the fast camera.
+
+
 
 .. Metadata such as the title, authors, and description are set in metadata.yaml
 
@@ -25,8 +31,7 @@ The current pointing model for the TMA has been developed primarly using the nar
 Analysis
 ================
 
-The analysis and plots shown here were done using the notebook at:
-https://github.com/craiglagegit/Notebook_Keeper/blob/main/summit_notebooks/StarTracker_Fast_Offsets_05Apr23.ipynb
+The analysis and plots shown here were done using the notebook "StarTracker_Fast_Offsets_05Apr23.ipynb", which is in the notebooks directory of this technote.
 
 The first step is to determine the offsets using the astrometry solutions as determined by RubinTV. FInding an astrometry solution for the fast camera images is difficult because the field of view is so small and it often doesn't contain enough stars to give a good astrometric solution.  Using images from the night of 21-Mar-2023, Merlin FIsher-Levine was able to obtain simultaneous narrow camera and fast camera astrometric solutions for several hundred images.  We can then calculate the offset from the boresight of the narrow camera to the center of the fast camera.  Note that, since these are offsets on the sky, we need to include a cos(elevation) factor in the azimuth offset.  figure 1 shows these calculated offsets.
 
