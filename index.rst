@@ -2,20 +2,6 @@
 StarTracker Narrow Camera to Fast Camera Offsets
 ################################################
 
-.. abstract::
-
-   There are three StarTracker cameras mounted on the Rubin Observatory TMA (Telescope Mount Assembly).  This technote describes the offsets necessary to center images in the fast camera.
-
-
-
-.. Metadata such as the title, authors, and description are set in metadata.yaml
-
-.. TODO: Delete the note below before merging new content to the main branch.
-
-.. note::
-
-   **This technote is a work-in-progress.**
-
 Abstract
 ========
 
@@ -24,16 +10,20 @@ There are three StarTracker cameras mounted on the Rubin Observatory TMA (Telesc
 Introduction
 ================
 
-There are three StarTracker cameras mounted on the Rubin Observatory TMA(TelescopeMount Assembly).  These are used to verify the pointing and tracking performance of the TMA before the telescope mirrors are installed.  The wide camera has a field of view of about 7 degrees and a pixel scale of 8.66 arcseconds/pixel.  The narrow camera has a field of view of about 1.2 degrees and a pixel scale of 1.44 arcseconds/pixel.  The fast camera is a DIMM unit that currently has the deflection prism removed.  It has a fast camera that can take images at hundreds of hertz.  It has a small field of view of about 6 arcminutes and a pixel scale of 0.62 arcseconds/pixel.
+There are three StarTracker cameras mounted on the Rubin Observatory TMA(TelescopeMount Assembly).  These are used to verify the pointing and tracking performance of the TMA before the telescope mirrors are installed.  The wide camera has a field of view of about 7 degrees and a pixel scale of 8.66 arcseconds/pixel.  The narrow camera has a field of view of about 1.2 degrees and a pixel scale of 1.44 arcseconds/pixel.  The fast camera is a DIMM unit that currently has the deflection prism removed.  It has a fast camera that can take images at hundreds of Hertz.  It has a small field of view of about 6 arcminutes and a pixel scale of 0.62 arcseconds/pixel.
 
 The current pointing model for the TMA has been developed primarly using the narrow camera.  So when the TMA is directed to slew to a location on the sky, it directs that location to the boresight of the narrow camera.  Because the field of view of the fast camera is so small, an object placed at the boresight of the narrow camera is outside of the field of view of the narrow camera (see Figures 2 and 3).  We typically want to take high speed camera images with a bright star in the fast camera field of view.  Spiral searching to find a bright star and put it in the fast camera field is laborious.  So what is wanted is to know the offset from the narrow camera to the fast camera.  Then the procedure is to point the TMA at an object, which will position it at the boresight of the narrow camera, and then introduce a known offset to put the object in the field of view of the narrow camera.  Calculating and verifying this offset is the subject of this technote.
 
 Analysis
 ================
 
-The analysis and plots shown here were done using the notebook "StarTracker_Fast_Offsets_05Apr23.ipynb", which is in the notebooks directory of this technote.
+The analysis and plots shown here were done using the following notebook, which is in the notebooks directory of this technote.
 
-The first step is to determine the offsets using the astrometry solutions as determined by RubinTV. FInding an astrometry solution for the fast camera images is difficult because the field of view is so small and it often doesn't contain enough stars to give a good astrometric solution.  Using images from the night of 21-Mar-2023, Merlin FIsher-Levine was able to obtain simultaneous narrow camera and fast camera astrometric solutions for several hundred images.  We can then calculate the offset from the boresight of the narrow camera to the center of the fast camera.  Note that, since these are offsets on the sky, we need to include a cos(elevation) factor in the azimuth offset.  figure 1 shows these calculated offsets.
+:file: notebooks/StarTracker_Fast_Offsets_05Apr23.ipynb
+
+   
+
+The first step is to determine the offsets using the astrometry solutions as determined by RubinTV. FInding an astrometry solution for the fast camera images is difficult because the field of view is so small and it often doesn't contain enough stars to give a good astrometric solution.  Using images from the night of 21-Mar-2023, Merlin FIsher-Levine was able to obtain simultaneous narrow camera and fast camera astrometric solutions for several hundred images.  We can then calculate the offset from the boresight of the narrow camera to the center of the fast camera.  Note that, since these are offsets on the sky, we need to include a cos(elevation) factor in the azimuth offset.  Figure 1 shows these calculated offsets.
 
 .. image:: ./_static/Fast_Camera_Offset_20230321.png
 
@@ -59,7 +49,9 @@ Possible explanation of the sign error
 
 No explanation has been found for the sign error on one component of the offset.  It is easy to understand that the signs of both offsets are incorrect, because there are sign inversions as discussed above.  However, no error could be found in the analysis above that could invert the sign of just one of the components.  So I started looking at the code that runs the ``mtcs.offset_azel`` command.  At this point in the code:
 
-https://github.com/lsst-ts/ts_observatory_control/blob/65e62109e88185f16e08e24683914e08bf5c3119/python/lsst/ts/observatory/control/base_tcs.py#L116
+https://github.com/lsst-ts/ts_observatory_control/blob/
+65e62109e88185f16e08e24683914e08bf5c3119/python
+/lsst/ts/observatory/control/base_tcs.py#L116
 
 There is the following statement:
 
@@ -77,7 +69,9 @@ There is the following statement:
 
 The code that actually does the offset is here:
 
- https://github.com/lsst-ts/ts_observatory_control/blob/65e62109e88185f16e08e24683914e08bf5c3119/python/lsst/ts/observatory/control/base_tcs.py#L996
+ https://github.com/lsst-ts/ts_observatory_control/blob/
+ 65e62109e88185f16e08e24683914e08bf5c3119/python
+ /lsst/ts/observatory/control/base_tcs.py#L996
 
  
 ..  code-block:: python
