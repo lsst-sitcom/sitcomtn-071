@@ -47,11 +47,7 @@ The analysis above shows that the offset from the narrow camera to the fast came
 Possible explanation of the sign error
 ===========================================
 
-No explanation has been found for the sign error on one component of the offset.  It is easy to understand that the signs of both offsets are incorrect, because there are sign inversions as discussed above.  However, no error could be found in the analysis above that could invert the sign of just one of the components.  So I started looking at the code that runs the ``mtcs.offset_azel`` command.  At this point in the code:
-
-https://github.com/lsst-ts/ts_observatory_control/blob/
-65e62109e88185f16e08e24683914e08bf5c3119/python
-/lsst/ts/observatory/control/base_tcs.py#L116
+No explanation has been found for the sign error on one component of the offset.  It is easy to understand that the signs of both offsets are incorrect, because there are sign inversions as discussed above.  However, no error could be found in the analysis above that could invert the sign of just one of the components.  So I started looking at the code that runs the ``mtcs.offset_azel`` command.  At this point in `this code <https://github.com/lsst-ts/ts_observatory_control/blob/65e62109e88185f16e08e24683914e08bf5c3119/python/lsst/ts/observatory/control/base_tcs.py#L116>`_
 
 There is the following statement:
 
@@ -67,11 +63,7 @@ There is the following statement:
 	
 
 
-The code that actually does the offset is here:
-
- https://github.com/lsst-ts/ts_observatory_control/blob/
- 65e62109e88185f16e08e24683914e08bf5c3119/python
- /lsst/ts/observatory/control/base_tcs.py#L996
+The code that actually does the offset is  `here  <https://github.com/lsst-ts/ts_observatory_control/blob/65e62109e88185f16e08e24683914e08bf5c3119/python/lsst/ts/observatory/control/base_tcs.py#L996>`_
 
  
 ..  code-block:: python
