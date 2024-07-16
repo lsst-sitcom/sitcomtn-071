@@ -1,0 +1,16 @@
+[technote]
+id = "SITCOMTN-071"
+series_id = "SITCOMTN"
+canonical_url = "https://sitcomtn-071.lsst.io/"
+github_url = "https://github.com/lsst-sitcom/sitcomtn-071"
+github_default_branch = "main"
+organization.name = "Vera C. Rubin Observatory"
+organization.ror = "https://ror.org/048g3cy84"
+license.id = "CC-BY-4.0"
+[[technote.authors]]
+name = {given = "Craig S.", family = "Lage"}
+internal_id = "lagecs"
+[[technote.authors.affiliations]]
+name = "Physics Department"
+internal_id = "UCDavis"
+address = "University of California, One Shields Avenue, Davis, CA 95616, USA"
